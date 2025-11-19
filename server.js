@@ -5,7 +5,7 @@ import pokemonRoutes from "./src/routes/pokemon.routes.js"
 const app = express()
 
 app.use(cors({
-    origin: "http://localhost:4321"
+    origin: "*"
 }))
 
 app.use(express.json())

@@ -1,5 +1,4 @@
 import simplifyPokemonList from "../utils/transform.js"
-import fetch from "node-fetch"
 
 const fetchPokemons = async () => {
 
