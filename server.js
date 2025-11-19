@@ -12,4 +12,8 @@ app.use(express.json())
 
 app.use("/pokemon", pokemonRoutes)
 
+app.get("/", (req, res) => {
+  res.send("Kanto API is running");
+})
+
 export default app
