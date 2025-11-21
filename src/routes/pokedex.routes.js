@@ -5,3 +5,5 @@ const router = Router()
 router.get('/', (req, res) => {
     res.send('Fent un get')
 })
+
+export default router
