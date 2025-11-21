@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { pool } from '../database/db'
+import getPokemons from '../controllers/pokedex.controller'
 
 const router = Router()
 
