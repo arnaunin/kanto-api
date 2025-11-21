@@ -13,20 +13,19 @@ router.get('/:id', async (req, res) => {
     if (rows.length === 0) {
         return res.status(404).json({ message: "Pokemon not found"})
     }
-    res.json(rows)
+    res.json(rows[0])
 })
 
 router.post('/', async (req, res) => {
-    const data = req.body
-    const result = await db.query('INSERT INTO pokemon (nombre) VALUES ($1)', [data.nombre])
-    res.sendStatus(204)
+    const { nombre } = req.body
+    await db.query('INSERT INTO pokemon (nombre, capturado) VALUES ($1, false)', [nombre])
+    res.status(201).json({ message: "Pokemon created" })
 })
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params
-
-    const results = await db.query('UPDATE pokemon SET capturado = NOT capturado WHERE id = $1', [id])
-    res.sendStatus(204)
+    await db.query('UPDATE pokemon SET capturado = NOT capturado WHERE id = $1', [id])
+    res.json({ message: "Pokemon updated" })
 })
 
 router.delete('/:id', async (req, res) => {
@@ -36,7 +35,7 @@ router.delete('/:id', async (req, res) => {
     if (rowCount === 0) {
         return res.status(404).json({ message: "Pokemon not found"})
     }
-    res.sendStatus(204)
+    res.sendStatus({ message: "Pokemon deleted" })
 })
 
 export default router
