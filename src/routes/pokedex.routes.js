@@ -1,6 +1,6 @@
 import { Router } from "express"
-import { db } from '../database/db'
-import getAll from '../controllers/pokedex.controller'
+import { db } from '../database/db.js'
+import getAll from '../controllers/pokedex.controller.js'
 
 const router = Router()
 
@@ -35,7 +35,7 @@ router.delete('/:id', async (req, res) => {
     if (rowCount === 0) {
         return res.status(404).json({ message: "Pokemon not found"})
     }
-    res.sendStatus({ message: "Pokemon deleted" })
+    res.json({ message: "Pokemon deleted" })
 })
 
 export default router

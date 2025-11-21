@@ -1,4 +1,4 @@
-import { db } from '../database/db'
+import { db } from '../database/db.js'
 
 const getAll = async (req, res) => {
     try {
