@@ -1,12 +1,12 @@
-import fetchPokemons from "../services/pokemon.service.js"
+import fetchFirstGen from "../services/pokemon.service.js"
 
-const getPokemons = async (req, res) => {
+const getFirstGen = async (req, res) => {
     try {
-        const pokemons = await fetchPokemons()
-        res.json(pokemons)
+        const firstGen = await fetchFirstGen()
+        res.json(firstGen)
     } catch (error) {
         res.status(500).json({ error: "Error fetching Pokémon data" })
     }
 }
 
-export default getPokemons
+export default getFirstGen

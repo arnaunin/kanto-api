@@ -1,8 +1,8 @@
 import { Router } from "express"
-import getPokemons from "../controllers/pokemon.controller.js"
+import getFirstGen from "../controllers/pokemon.controller.js"
 
 const router = Router()
 
-router.get("/", getPokemons)
+router.get("/", getFirstGen)
 
 export default router

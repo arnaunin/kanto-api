@@ -1,6 +1,6 @@
 import simplifyPokemonList from "../utils/transform.js"
 
-const fetchPokemons = async () => {
+const fetchFirstGen = async () => {
 
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
     const data = await response.json()
@@ -8,4 +8,4 @@ const fetchPokemons = async () => {
     return simplifyPokemonList(data.results)
 }
 
-export default fetchPokemons
+export default fetchFirstGen
