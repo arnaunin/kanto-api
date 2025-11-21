@@ -1,4 +1,4 @@
-const getPokemons = async (req, res) => {
+const getAll = async (req, res) => {
     try {
         const { rows } = await pool.query('SELECT * FROM pokemon-db')
         res.json(rows)
@@ -7,4 +7,4 @@ const getPokemons = async (req, res) => {
     }
 }
 
-export default getPokemons
+export default getAll

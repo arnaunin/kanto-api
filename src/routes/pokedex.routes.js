@@ -1,14 +1,14 @@
 import { Router } from "express"
-import { pool } from '../database/db'
-import getPokemons from '../controllers/pokedex.controller'
+import { db } from '../database/db'
+import getAll from '../controllers/pokedex.controller'
 
 const router = Router()
 
-router.get('/', getPokemons)
+router.get('/', getAll)
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params
-    const { rows } = await pool.query(`SELECT * FROM pokemon-db WHERE id = ${id}`)
+    const { rows } = await db.query('SELECT * FROM pokemon WHERE id = $1', [id])
 
     if (rows.length === 0) {
         return res.status(404).json({ message: "Pokemon not found"})
@@ -18,20 +18,20 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const data = req.body
-    const result = await pool.query(`INSERT INTO pokedex-db (nombre) VALUES (${data.nombre})`)
+    const result = await db.query('INSERT INTO pokemon (nombre) VALUES ($1)', [data.nombre])
     res.sendStatus(204)
 })
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params
 
-    const results = await pool.query(`UPDATE pokemon-db SET capturado = NOT capturado WHERE id = ${id}`)
+    const results = await db.query('UPDATE pokemon SET capturado = NOT capturado WHERE id = $1', [id])
     res.sendStatus(204)
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params
-    const { rowCount } = await pool.query(`DELETE FROM pokemon-db WHERE id = ${id}`)
+    const { rowCount } = await db.query('DELETE FROM pokemon WHERE id = $1', [id])
 
     if (rowCount === 0) {
         return res.status(404).json({ message: "Pokemon not found"})
