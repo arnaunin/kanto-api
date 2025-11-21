@@ -24,7 +24,7 @@ const create = async (req, res) => {
     try {
         const { nombre } = req.body
         if (!nombre) return res.status(400).json({ error: "Nombre required" });
-        const result = await db.query('INSERT INTO pokedex (nombre, capturado) VALUES ($1, false)', [nombre])
+        const result = await db.query('INSERT INTO pokedex (nombre, capturado) VALUES ($1, false) RETURNING *', [nombre])
         res.status(201).json(result.rows[0])
     } catch (error) {
         res.status(500).json({ error: 'Error creating pokemon'})
@@ -34,8 +34,9 @@ const create = async (req, res) => {
 const toggle =  async (req, res) => {
     try {
         const { id } = req.params
-        await db.query('UPDATE pokedex SET capturado = NOT capturado WHERE id = $1', [id])
-        res.json({ message: "Pokemon updated" })
+        const result = await db.query('UPDATE pokedex SET capturado = NOT capturado WHERE id = $1 RETURNING *', [id])
+        if (result.rows.length === 0) return res.status(404).json({ error: "Not found" })
+        res.json(result.rows[0])
     } catch (error) {
         res.status(500).json({ error: "Error updating pokemon" })
     }
@@ -44,7 +45,7 @@ const toggle =  async (req, res) => {
 const remove = async (req, res) => {
     try {
         const { id } = req.params
-        const { rowCount } = await db.query('DELETE FROM pokedex WHERE id = $1', [id])
+        const { rowCount } = await db.query('DELETE FROM pokedex WHERE id = $1 RETURNING *', [id])
         if (rowCount === 0) return res.status(404).json({ message: "Pokemon not found"})
         res.json({ message: "Pokemon deleted" })
     } catch (error) {
