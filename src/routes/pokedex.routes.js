@@ -1,12 +1,18 @@
 import { Router } from "express"
-import pokedexController from "../controllers/pokedex.controller.js"
+import {
+    getAll,
+    getOne,
+    create,
+    toggle,
+    remove
+} from "../controllers/pokedex.controller.js"
 
 const router = Router()
 
-router.get('/', pokedexController.getAll)
-router.get('/:id', pokedexController.getOne)
-router.post('/', pokedexController.create)
-router.put('/:id', pokedexController.toggle)
-router.delete('/:id', pokedexController.remove)
+router.get('/', getAll)
+router.get('/:id', getOne)
+router.post('/', create)
+router.put('/:id', toggle)
+router.delete('/:id', remove)
 
 export default router

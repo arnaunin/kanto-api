@@ -6,7 +6,7 @@ import {
     removeService
 } from "../services/pokedex.services.js"
 
-const getAll = async (req, res) => {
+export const getAll = async (req, res) => {
     try {
         const pokemons = await getAllService()
         res.json(pokemons)
@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
     }
 }
 
-const getOne = async (req, res) => {
+export const getOne = async (req, res) => {
     try {
         const { id } = req.params
         const pokemon = await getOneService(id)
@@ -26,7 +26,7 @@ const getOne = async (req, res) => {
     }
 }
 
-const create = async (req, res) => {
+export const create = async (req, res) => {
     try {
         const { nombre } = req.body
         if (!nombre) return res.status(400).json({ error: "Nombre required" });
@@ -40,7 +40,7 @@ const create = async (req, res) => {
     }
 }
 
-const toggle =  async (req, res) => {
+export const toggle =  async (req, res) => {
     try {
         const { id } = req.params
         const updated = await toggleService(id)
@@ -54,7 +54,7 @@ const toggle =  async (req, res) => {
     }
 }
 
-const remove = async (req, res) => {
+export const remove = async (req, res) => {
     try {
         const { id } = req.params
         const deleted = await removeService(id)
@@ -67,5 +67,3 @@ const remove = async (req, res) => {
         res.status(500).json({ error: "Error removing pokemon" })
     }
 }
-
-export default { getAll, getOne, create, toggle, remove }
