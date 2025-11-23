@@ -1,9 +1,15 @@
-import { db } from '../database/db.js'
+import {
+    getAllService,
+    getOneService,
+    createService,
+    toggleService,
+    removeService
+} from "../services/pokedex.services.js"
 
 const getAll = async (req, res) => {
     try {
-        const { rows } = await db.query('SELECT * FROM pokedex')
-        res.json(rows)
+        const pokemons = await getAllService()
+        res.json(pokemons)
     } catch (error){
         res.status(500).json({ error: 'Error getting pokedex'})
     }
@@ -12,9 +18,9 @@ const getAll = async (req, res) => {
 const getOne = async (req, res) => {
     try {
         const { id } = req.params
-        const result = await db.query('SELECT * FROM pokedex WHERE id = $1', [id])
-        if (result.rows.length === 0) return res.status(404).json({ error: "Not found" })
-        res.json(result.rows[0])
+        const pokemon = await getOneService(id)
+        if (!pokemon) return res.status(404).json({ error: "Not found" })
+        res.json(pokemon)
     } catch (error) {
         res.status(500).json({ error: 'Error getting pokemon'})
     }
@@ -24,8 +30,11 @@ const create = async (req, res) => {
     try {
         const { nombre } = req.body
         if (!nombre) return res.status(400).json({ error: "Nombre required" });
-        const result = await db.query('INSERT INTO pokedex (nombre, capturado) VALUES ($1, false) RETURNING *', [nombre])
-        res.status(201).json(result.rows[0])
+        const pokemon = await createService(nombre)
+        res.status(201).json({
+            message: "Pokemon created",
+            pokemon: pokemon
+        })
     } catch (error) {
         res.status(500).json({ error: 'Error creating pokemon'})
     }
@@ -34,9 +43,12 @@ const create = async (req, res) => {
 const toggle =  async (req, res) => {
     try {
         const { id } = req.params
-        const result = await db.query('UPDATE pokedex SET capturado = NOT capturado WHERE id = $1 RETURNING *', [id])
-        if (result.rows.length === 0) return res.status(404).json({ error: "Not found" })
-        res.json(result.rows[0])
+        const updated = await toggleService(id)
+        if (!updated) return res.status(404).json({ error: "Pokemon not found" })
+        res.json({
+            message: "Pokemon updated",
+            pokemon: updated
+        })
     } catch (error) {
         res.status(500).json({ error: "Error updating pokemon" })
     }
@@ -45,9 +57,12 @@ const toggle =  async (req, res) => {
 const remove = async (req, res) => {
     try {
         const { id } = req.params
-        const { rowCount } = await db.query('DELETE FROM pokedex WHERE id = $1 RETURNING *', [id])
-        if (rowCount === 0) return res.status(404).json({ message: "Pokemon not found"})
-        res.json({ message: "Pokemon deleted" })
+        const deleted = await removeService(id)
+        if (!deleted) return res.status(404).json({ error: "Pokemon not found"})
+        res.json({
+            message: "Pokemon deleted",
+            pokemon: deleted
+        })
     } catch (error) {
         res.status(500).json({ error: "Error removing pokemon" })
     }
