@@ -1,7 +1,7 @@
 import { db } from "../database/db.js"
 
 export const getAllService = async () => {
-    const result = await db.query('SELECT * FROM pokedex')
+    const result = await db.query('SELECT * FROM pokedex ORDER BY id ASC')
     return result.rows
 }
 
