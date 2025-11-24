@@ -1,5 +1,5 @@
 import { db } from "../database/db.js"
-import simplifyPokemonList from "../utils/transform.js"
+import { simplifyPokemonList } from "../utils/transform.js"
 
 export const fetchFirstGen = async () => {
 

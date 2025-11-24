@@ -5,6 +5,7 @@ import {
     create,
     toggle,
     remove,
+    removeAll
 } from "../controllers/pokedex.controller.js"
 
 const router = Router()
@@ -14,5 +15,6 @@ router.get('/:id', getOne)
 router.post('/', create)
 router.put('/:id', toggle)
 router.delete('/:id', remove)
+router.delete('/clear', removeAll)
 
 export default router

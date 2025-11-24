@@ -24,3 +24,8 @@ export const removeService = async (id) => {
     const result = await db.query('DELETE FROM pokedex WHERE id = $1 RETURNING *', [id])
     return result.rows[0] || null    
 }
+
+export const removeAllService = async () => {
+    await db.query('TRUNCATE TABLE pokedex RESTART IDENTITY')
+    return { success: true }
+}

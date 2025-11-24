@@ -3,7 +3,8 @@ import {
     getOneService,
     createService,
     toggleService,
-    removeService
+    removeService,
+    removeAllService
 } from "../services/pokedex.services.js"
 
 export const getAll = async (req, res) => {
@@ -65,5 +66,14 @@ export const remove = async (req, res) => {
         })
     } catch (error) {
         res.status(500).json({ error: "Error removing pokemon" })
+    }
+}
+
+export const removeAll = async (req, res) => {
+    try {
+        await removeAllService()
+        res.json({ message: "All pokemon removed" })
+    } catch (error) {
+        res.status(500).json({ error: "Error removing all pokemon" })
     }
 }
