@@ -31,7 +31,7 @@ export const create = async (req, res) => {
         const { nombre } = req.body
         if (!nombre) return res.status(400).json({ error: "Nombre required" });
         const pokemon = await createService(nombre)
-        res.status(201).json({
+        res.json({
             message: "Pokemon created",
             pokemon: pokemon
         })

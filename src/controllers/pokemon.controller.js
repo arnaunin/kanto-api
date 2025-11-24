@@ -1,6 +1,7 @@
-import fetchFirstGen from "../services/pokemon.service.js"
+import { fetchFirstGen } from "../services/pokemon.service.js"
+import { createManyService } from "../services/pokemon.services.js"
 
-const getFirstGen = async (req, res) => {
+export const getFirstGen = async (req, res) => {
     try {
         const firstGen = await fetchFirstGen()
         res.json(firstGen)
@@ -9,4 +10,12 @@ const getFirstGen = async (req, res) => {
     }
 }
 
-export default getFirstGen
+export const createFirstGen = async (req, res) => {
+    try {
+        const { nombres } = req.body
+        await createManyService(nombres)
+        res.json({ message: "Many pokemon created"})
+    } catch (error) {
+        res.status(500).json({ error: "Error creating many pokemon" })
+    }
+}

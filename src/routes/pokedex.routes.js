@@ -4,7 +4,7 @@ import {
     getOne,
     create,
     toggle,
-    remove
+    remove,
 } from "../controllers/pokedex.controller.js"
 
 const router = Router()
