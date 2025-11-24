@@ -1,5 +1,4 @@
-import { fetchFirstGen } from "../services/pokemon.service.js"
-import { createManyService } from "../services/pokemon.services.js"
+import { fetchFirstGen, createManyService } from "../services/pokemon.services.js"
 
 export const getFirstGen = async (req, res) => {
     try {
