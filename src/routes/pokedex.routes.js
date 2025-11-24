@@ -14,7 +14,7 @@ router.get('/', getAll)
 router.get('/:id', getOne)
 router.post('/', create)
 router.put('/:id', toggle)
-router.delete('/:id', remove)
 router.delete('/clear', removeAll)
+router.delete('/:id', remove)
 
 export default router
