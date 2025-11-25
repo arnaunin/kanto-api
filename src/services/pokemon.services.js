@@ -10,7 +10,7 @@ export const fetchFirstGen = async () => {
 }
 
 export const createManyService = async (nombres) => {
-    const values = nombres.map(name => `('${name}', false)`).join(", ")
-    const result = await db.query(`INSERT INTO pokedex (nombre, capturado) VALUES ${values} RETURNING *`)
+    const values = nombres.map(name => `('${name}', false, false)`).join(", ")
+    const result = await db.query(`INSERT INTO pokedex (nombre, capturado, base) VALUES ${values} RETURNING *`)
     return result.rows
 }

@@ -11,7 +11,7 @@ export const getOneService = async (id) => {
 }
 
 export const createService = async (nombre) => {
-    const result = await db.query('INSERT INTO pokedex (nombre, capturado) VALUES ($1, false) RETURNING *', [nombre])
+    const result = await db.query('INSERT INTO pokedex (nombre, capturado, base) VALUES ($1, false, false) RETURNING *', [nombre])
     return result.rows[0]
 }
 
@@ -21,7 +21,7 @@ export const toggleService = async (id) => {
 }
 
 export const removeService = async (id) => {
-    const result = await db.query('DELETE FROM pokedex WHERE id = $1 RETURNING *', [id])
+    const result = await db.query('DELETE FROM pokedex WHERE id = $1 and base = false RETURNING *', [id])
     return result.rows[0] || null    
 }
 
