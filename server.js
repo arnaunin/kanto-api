@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import pokemonRoutes from "./src/routes/pokemon.routes.js"
 import pokedexRoutes from "./src/routes/pokedex.routes.js"
+import imagesRoutes from "./src/routes/images.routes.js"
 
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(express.json())
 
 app.use("/pokemon", pokemonRoutes)
 app.use("/pokedex", pokedexRoutes)
+app.use("/images", imagesRoutes)
 
 app.get("/", (req, res) => {
   res.send("Kanto API is running");
