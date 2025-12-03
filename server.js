@@ -14,7 +14,6 @@ app.use(express.json())
 
 app.use("/pokemon", pokemonRoutes)
 app.use("/pokedex", pokedexRoutes)
-app.use("/images", imagesRoutes)
 
 app.get("/", (req, res) => {
   res.send("Kanto API is running");
