@@ -29,9 +29,14 @@ export const getOne = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-        const { nombre } = req.body
+        console.log('req.body (backend):', req.body)
+
+        const { nombre, imagen } = req.body
+
+        console.log('controller params:', nombre, imagen)
+        
         if (!nombre) return res.status(400).json({ error: "Nombre required" });
-        const pokemon = await createService(nombre)
+        const pokemon = await createService(nombre, imagen)
         res.json({
             message: "Pokemon created",
             pokemon: pokemon
