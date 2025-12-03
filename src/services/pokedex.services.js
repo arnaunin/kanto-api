@@ -10,14 +10,8 @@ export const getOneService = async (id) => {
     return result.rows[0] || null
 }
 
-export const createService = async (nombre, imageUrl) => {
-
-    console.log('createService params:', nombre, imagen)
-
-    const result = await db.query('INSERT INTO pokedex (nombre, capturado, bas, image_url) VALUES ($1, false, false, $2) RETURNING *', [nombre, imageUrl])
-
-    console.log('row inserted:', result.rows[0])
-
+export const createService = async (nombre) => {
+    const result = await db.query('INSERT INTO pokedex (nombre, capturado, bas, image_url) VALUES ($1, false, false) RETURNING *', [nombre])
     return result.rows[0]
 }
 
