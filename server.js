@@ -2,7 +2,6 @@ import express from "express"
 import cors from "cors"
 import pokemonRoutes from "./src/routes/pokemon.routes.js"
 import pokedexRoutes from "./src/routes/pokedex.routes.js"
-import imagesRoutes from "./src/routes/images.routes.js"
 
 const app = express()
 

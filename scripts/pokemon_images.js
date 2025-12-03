@@ -1,3 +1,5 @@
+// Script que se ejecutó una vez para añadir todas las urls de las imagenes de los pokemons de la primera generación
+
 import { db } from "../src/database/db.js"
 
 (async () => {
